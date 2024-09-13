@@ -1,0 +1,13 @@
+@import './base.css';
+
+/* .cursor {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    background: linear-gradient(45deg, #FF95F4 0%, #FFB3F7 25%, #D370C9 50%, #7A3E8C 75%, #452B66 100%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+} */
