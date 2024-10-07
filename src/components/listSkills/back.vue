@@ -1,5 +1,5 @@
 <template>
-    <h2>Compétences Back</h2>
+    <h3>Compétences Back</h3>
     <ul>
         <li>PHP</li>
         <li>MySQL</li>

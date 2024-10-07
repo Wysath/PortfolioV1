@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # PortfolioV1
 =======
 # vue-project
@@ -30,4 +30,4 @@ npm run dev
 ```sh
 npm run build
 ```
->>>>>>> 6262da5 (Commit de sauvegarde)
+

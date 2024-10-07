@@ -1,11 +1,11 @@
 <template>
-    <h2>Compétences Front</h2>
+    <h3>Compétences Front</h3>
     <ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-    <li>Vue.js</li>
-    <li>Bootstrap</li>
-    <li>JQUERY</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Vue.js</li>
+        <li>Bootstrap</li>
+        <li>JQUERY</li>
     </ul>
 </template>
