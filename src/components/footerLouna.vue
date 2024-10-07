@@ -2,8 +2,8 @@
     <footer>
         <div class="footer">
             <div class="footer-content">
-                <h2 class="copyright">© 2024 - Louna Petitfils</h2>
-                <p class="copyright-texte">Site réalisé avec 48 tasses de cafés</p>
+                <p class="copyright">© 2024 - Louna Petitfils</p>
+                <p class="copyright-texte">Site réalisé avec ♥</p>
             </div>
         </div>
     </footer>
@@ -29,7 +29,7 @@
 
     .copyright {
         color: var(--vt-c-white);
-        font-size: 24px;
+        font-size: 16px;
     }
 
     .copyright-texte {
