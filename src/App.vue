@@ -1,22 +1,34 @@
-<script setup>
-  import Navbar from './components/Navbar.vue'
-  import skills from './components/skills.vue'
-  import presentation from './components/presentation.vue';
-  import projets from './components/projets.vue';
-  import about from './components/about.vue'
-  import contact from './components/contact.vue'
-  import footerLouna from './components/footerLouna.vue'
-</script>
-
 <template>
-    <div>
-        <Navbar />
-        <presentation/>
-        <projets/>
-        <skills/>
-        <about/>
-        <contact/>
-        <footerLouna/>
-    </div>
+  <div id="app">
+    <Navbar />
+    <section id="presentation">
+      <Presentation />
+    </section>
+    <section id="projets">
+      <Projets />
+    </section>
+    <section id="skills">
+      <Skills />
+    </section>
+    <section id="about">
+      <About />
+    </section>
+    <section id="contact">
+      <Contact />
+    </section>
+    <FooterLouna />
+  </div>
 </template>
 
+
+
+<script setup>
+import Navbar from './components/Navbar.vue';
+import Projets from './components/projets.vue';
+import Skills from './components/skills.vue';
+import About from './components/about.vue';
+import Contact from './components/contact.vue';
+import FooterLouna from './components/footerLouna.vue';
+import Presentation from './components/presentation.vue';
+import router from './router';
+</script>

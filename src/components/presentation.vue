@@ -1,14 +1,14 @@
 <template>
   <div class="presentation">
-    <div class="background-circles">
-      <div class="circle circle1" offset-hover-max="0.7" offset-hover-min="0.5"></div>
-      <div class="circle circle2" offset-hover-max="0.7" offset-hover-min="0.5"></div>
-      <div class="circle circle3" offset-hover-max="0.7" offset-hover-min="0.5"></div>
+    <div class="background" ref="canvasWrapper">
+      <canvas ref="canvas"></canvas>
     </div>
-
     <div class="text-container">
       <h1 class="titre-presentation">Louna Petitfils</h1>
-      <h2 class="texte-presentation">Développeuse web junior</h2>
+      <h2 class="titre">Développeuse web</h2>
+      <h2 class="texte-presentation"> Votre vision, mon expertise : je crée des sites web uniques et personnalisés</h2>
+      <br>
+      <button @click="scrollToContact" class="btn">Contactez-moi</button>
     </div>
   </div>
 </template>
@@ -20,48 +20,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh; 
-  /*background-color: #f0f0f0; */
-  overflow: hidden; /* Pour cacher les parties des cercles qui dépassent */
-}
-
-.background-circles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden; 
-  z-index: 0;
-}
-
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(184, 122, 241, 0.5), rgba(255, 209, 149, 0.5));
-  animation: move 10s infinite alternate;
-  transition: transform 0.3s ease;
-  filter: blur(1.5rem);
-}
-
-.circle1 {
-  width: 300px;
-  height: 300px;
-  top: 10%;
-  left: 20%;
-}
-
-.circle2 {
-  width: 400px;
-  height: 400px;
-  top: 50%;
-  left: 60%;
-}
-
-.circle3 {
-  width: 200px;
-  height: 200px;
-  top: 70%;
-  left: 30%;
+  overflow: hidden;
 }
 
 .text-container {
@@ -93,6 +52,30 @@
   opacity: 0.3;
 }
 
+.titre{
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  font-weight: 400;
+}
+
+.btn{
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  background-color: var(--vt-c-white);
+  color: var(--vt-c-back);
+  border: 1px solid var(--vt-c-primary-color);
+  border-radius: 25px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--vt-c-secondary-color);
+    border: 1px solid var(--vt-c-secondary-color);
+    color: var(--vt-c-white);
+  }
+
+}
+
 @keyframes highlight {
   0% {
     width: 0;
@@ -102,5 +85,107 @@
     width: 100%;
     left: 0;
   }
+}
+</style>
+
+<script>
+import { RouterLink } from 'vue-router';
+
+export default {
+
+  data() {
+    return {
+      mouseX: 0,
+      mouseY: 0,
+      circles: [] 
+    };
+  },
+  methods: {
+
+    scrollToContact() {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+
+    setupCanvas() {
+      const canvas = this.$refs.canvas;
+      const ctx = canvas.getContext("2d");
+      const wrapper = this.$refs.canvasWrapper;
+      canvas.width = wrapper.offsetWidth;
+      canvas.height = wrapper.offsetHeight;
+
+      //console.log('Canvas dimensions:', canvas.width, canvas.height);
+
+      window.addEventListener("mousemove", (event) => {
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+        //console.log('Mouse position:', this.mouseX, this.mouseY);
+      });
+
+      for (let i = 0; i < 50; i++) {
+        const circle = this.createCircle(canvas);
+        this.circles.push(circle);
+        //console.log('Created circle:', circle);
+      }
+
+      this.animate(ctx, canvas);
+    },
+    createCircle(canvas) {
+      const radius = Math.random() * 10 + 5;
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: radius,
+        color: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.8)`,
+        velocityX: (Math.random() - 0.5) * 2,
+        velocityY: (Math.random() - 0.5) * 2
+      };
+    },
+    animate(ctx, canvas) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      this.circles.forEach((circle) => {
+        circle.x += circle.velocityX;
+        circle.y += circle.velocityY;
+
+        if (circle.x > canvas.width || circle.x < 0) circle.velocityX *= -1;
+        if (circle.y > canvas.height || circle.y < 0) circle.velocityY *= -1;
+
+        const distX = circle.x - this.mouseX;
+        const distY = circle.y - this.mouseY;
+        const dist = Math.sqrt(distX * distX + distY * distY);
+        const maxDist = 200;
+        if (dist < maxDist) {
+          const force = (maxDist - dist) / maxDist;
+          circle.x += distX * force * 0.05;
+          circle.y += distY * force * 0.05;
+        }
+
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = circle.color;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(() => this.animate(ctx, canvas));
+    }
+  },
+  mounted() {
+    this.setupCanvas();
+  }
+};
+</script>
+
+<style scoped>
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+canvas {
+  display: block;
 }
 </style>
