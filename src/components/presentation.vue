@@ -5,7 +5,10 @@
     </div>
     <div class="text-container">
       <h1 class="titre-presentation">Louna Petitfils</h1>
-      <h2 class="texte-presentation">Développeuse web junior</h2>
+      <h2 class="titre">Développeuse web</h2>
+      <h2 class="texte-presentation"> Votre vision, mon expertise : je crée des sites web uniques et personnalisés</h2>
+      <br>
+      <button @click="scrollToContact" class="btn">Contactez-moi</button>
     </div>
   </div>
 </template>
@@ -49,6 +52,30 @@
   opacity: 0.3;
 }
 
+.titre{
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  font-weight: 400;
+}
+
+.btn{
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  background-color: var(--vt-c-white);
+  color: var(--vt-c-back);
+  border: 1px solid var(--vt-c-primary-color);
+  border-radius: 25px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--vt-c-secondary-color);
+    border: 1px solid var(--vt-c-secondary-color);
+    color: var(--vt-c-white);
+  }
+
+}
+
 @keyframes highlight {
   0% {
     width: 0;
@@ -62,15 +89,26 @@
 </style>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
+
   data() {
     return {
       mouseX: 0,
       mouseY: 0,
-      circles: []
+      circles: [] 
     };
   },
   methods: {
+
+    scrollToContact() {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+
     setupCanvas() {
       const canvas = this.$refs.canvas;
       const ctx = canvas.getContext("2d");
@@ -78,18 +116,18 @@ export default {
       canvas.width = wrapper.offsetWidth;
       canvas.height = wrapper.offsetHeight;
 
-      console.log('Canvas dimensions:', canvas.width, canvas.height);
+      //console.log('Canvas dimensions:', canvas.width, canvas.height);
 
       window.addEventListener("mousemove", (event) => {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
-        console.log('Mouse position:', this.mouseX, this.mouseY);
+        //console.log('Mouse position:', this.mouseX, this.mouseY);
       });
 
       for (let i = 0; i < 50; i++) {
         const circle = this.createCircle(canvas);
         this.circles.push(circle);
-        console.log('Created circle:', circle);
+        //console.log('Created circle:', circle);
       }
 
       this.animate(ctx, canvas);
